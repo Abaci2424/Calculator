@@ -52,7 +52,7 @@ body {
   justify-items: center;
   justify-content: center;
   grid-template-areas:
-    "clean plus-minus percent division"
+    "clear clear percent division"
     "seven eigth nine multi"
     "four five six minus"
     "one two three plus"
@@ -79,7 +79,11 @@ body {
 }
 .calc_btn.equal {
   grid-area: equal;
-  width: 100%;
+  width: 80%;
+}
+.calc_btn.clear {
+  grid-area: clear;
+  width: 80%;
 }
 .new_color {
   background: #ffe4c4;
@@ -90,6 +94,7 @@ body {
   background: #d2b099;
   border: 1px solid #ba957c;
 }
+
 .calc_btn:hover {
   filter: brightness(120%);
 }

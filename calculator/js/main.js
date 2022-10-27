@@ -7,28 +7,73 @@ let secondNumber = '';
 let operation = '';
 let finish = false;
 
-
-clear.addEventListener('click',() => {
+function clearAll() {
   firstNumber = '';
   secondNumber = '';
   operation = '';
   finish = false;
   output.textContent = '0';
-});
-
+}
 let numbersArr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
-let operationArr = ['-', '+', '&times;', '&divide;']
+let operationArr = ['-', '+', '×', '÷', '%']
 
 allButtons.addEventListener('click', e => {
-  if (!e.target.classList.contains('.calc_btn')) return;
-  if (e.target.classList.contains('.clear')) return;
+  if (!e.target.classList.contains('calc_btn')) return;
+ 
+  if (e.target.classList.contains('clear')) {
+    return clear.addEventListener('click', clearAll);
+}
 
   output.textContent = '';
   let key = e.target.textContent;
   
-//  0-9 / .
+// ( 0-9 / . )true
   if (numbersArr.includes(key)) {
-    firstNumber += key;
-    console.log(firstNumber, secondNumber, operationArr)
+    if(secondNumber === '' && operation === '' ) {
+      firstNumber += key;
+      output.textContent = firstNumber;
+    }
+    else if (firstNumber !== '' && secondNumber !== '' && finish) {
+      secondNumber = key;
+      output.textContent = secondNumber;
+    }
+    else {
+      secondNumber += key;
+      output.textContent = secondNumber;
+    }
+    return;
   }
+
+  // (+, -, ×, /)true
+  if (operationArr.includes(key)) {
+    operation = key;
+    output.textContent = operation;
+  }
+// (=)true
+if (key === "=") {
+  // if (secondNumber === '') secondNumber = firstNumber;
+  switch (operation) {
+    case "+":
+      firstNumber = (+firstNumber) + (+secondNumber);
+      break;
+    case "-":
+      firstNumber = firstNumber - secondNumber;
+      break;
+    case "×":
+      firstNumber = firstNumber * secondNumber;
+      break;
+    case "÷":
+      if (secondNumber === '0'){
+        return clearAll;
+      } 
+      firstNumber = firstNumber / secondNumber;
+      break;
+      case "%":
+      firstNumber = secondNumber * (firstNumber / 100);
+      break;
+  }
+  finish = true;
+  output.textContent = firstNumber.toFixed(4);
+  console.log(firstNumber, secondNumber, operation)
+}
 })
