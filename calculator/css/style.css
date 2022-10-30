@@ -34,6 +34,7 @@ body {
 }
 
 .output {
+  overflow: hidden;
   width: 100%;
   height: auto;
   padding: 8px;
@@ -52,24 +53,22 @@ body {
   justify-items: center;
   justify-content: center;
   grid-template-areas:
-    "clean plus-minus percent division"
+    "clear clear percent division"
     "seven eigth nine multi"
     "four five six minus"
     "one two three plus"
     "zero dot equal equal";
-  grid-gap: 12px;
-  margin: 10px auto;
+  grid-gap: 14px;
+  margin: 30px auto;
 }
 
 .calc_btn {
-  width: 50px;
-  height: 50px;
+  width: 57px;
+  height: 57px;
   text-align: center;
-  line-height: 50px;
   font-size: 1.5rem;
   border-radius: 16px;
   border: 1px solid #faebd7;
-  padding: 6px;
   color: 	#523a2e;
   background: #fdf5e6;
   box-shadow:  -10px -10px 15px rgba(255, 255, 255, 0.569), 
@@ -81,6 +80,10 @@ body {
   grid-area: equal;
   width: 100%;
 }
+.calc_btn.clear {
+  grid-area: clear;
+  width: 100%;
+}
 .new_color {
   background: #ffe4c4;
   color: rgb(139, 9, 35);
@@ -90,6 +93,7 @@ body {
   background: #d2b099;
   border: 1px solid #ba957c;
 }
+
 .calc_btn:hover {
   filter: brightness(120%);
 }
