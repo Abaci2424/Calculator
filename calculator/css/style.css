@@ -22,6 +22,7 @@ body {
 
 .output_wrap {
   display: flex;
+  flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
   width: 100%;
@@ -32,13 +33,25 @@ body {
   box-shadow: inset -10px -10px 15px rgba(255, 255, 255, 0.5), 
   inset 10px 10px 15px rgba(70, 70, 70, 0.12);
 }
-
-.output {
-  overflow: hidden;
+.history {
+  
   width: 100%;
   height: auto;
   padding: 8px;
-  font-size: 3rem;
+  font-size: 16px;
+  text-align: end;
+  border: none;
+  margin: 0;
+  color: #b9866d;
+  background: #fff5ee00;
+  user-select: none;
+}
+.output {
+  
+  width: 100%;
+  height: auto;
+  padding: 8px;
+  font-size: 2rem;
   text-align: end;
   margin: 0;
   color: 	#523a2e;

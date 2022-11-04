@@ -1,6 +1,7 @@
 const output = document.querySelector(".output");
 const allButtons = document.querySelector(".buttons");
 const clear = document.querySelector(".clear");
+const history = document.querySelector(".history")
 
 let firstNumber = "";
 let secondNumber = "";
@@ -13,42 +14,49 @@ function clearAll() {
   operation = "";
   finish = false;
   output.textContent = 0;
+  history.textContent = '';
 }
 
 const numbersArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."];
 const operationArr = ["-", "+", "×", "÷", "%"];
 
+
 allButtons.addEventListener("click", (e) => {
   if (!e.target.classList.contains("calc_btn")) return;
-
-  if (e.target.classList.contains("clear")) {
+  
+  let value = e.target.value;
+  console.log(value);
+  
+  if (value === "reset") {
     return clear.addEventListener("click", clearAll);
   }
-
-  let key = e.target.textContent;
+ if (value !== "=") {
+  let result = history.textContent += value;
+  console.log(result);
+}
 
   // ( 0-9 / . )true
-  if (numbersArr.includes(key)) {
+  if (numbersArr.includes(value)) {
     if (secondNumber === "" && operation === "") {
-      firstNumber += key;
+      firstNumber += value;
       output.textContent = firstNumber;
     } else if (firstNumber !== "" && secondNumber !== "" && finish) {
-      secondNumber = key;
+        secondNumber = value;
       output.textContent = secondNumber;
     } else {
-      secondNumber += key;
+      secondNumber += value;
       output.textContent = secondNumber;
     }
     return;
   }
 
   // (+, -, ×, /)true
-  if (operationArr.includes(key)) {
-    operation = key;
+  if (operationArr.includes(value)) {
+    operation = value;
     output.textContent = operation;
   }
   // (=)true
-  if (key === "=") {
+  if (value === "=") {
     if (secondNumber === "") secondNumber = firstNumber;
     switch (operation) {
       case "+":
@@ -57,7 +65,7 @@ allButtons.addEventListener("click", (e) => {
       case "-":
         firstNumber = firstNumber - secondNumber;
         break;
-      case "×":
+      case "*":
         firstNumber = firstNumber * secondNumber;
         break;
       case "÷":
@@ -75,8 +83,8 @@ allButtons.addEventListener("click", (e) => {
         firstNumber = firstNumber.toFixed(2);
         break;
     }
+
     finish = true;
     output.textContent = firstNumber;
-    console.log(firstNumber, secondNumber, operation);
   }
 });
