@@ -47,7 +47,6 @@ body {
   user-select: none;
 }
 .output {
-  
   width: 100%;
   height: auto;
   padding: 8px;
@@ -63,21 +62,24 @@ body {
 
 .buttons {
   display: grid;
-  justify-items: center;
-  justify-content: center;
-  grid-template-areas:
-    "clear clear percent division"
-    "seven eigth nine multi"
-    "four five six minus"
-    "one two three plus"
-    "zero dot equal equal";
+  grid-template-columns: repeat(4, 50px);
+  grid-template-rows: repeat(5, 60px);
   grid-gap: 14px;
-  margin: 30px auto;
+  justify-items: center;
+  justify-content: space-evenly;
+  margin: 15px auto;
 }
-
+.buttons > button:nth-child(1){
+  grid-column: 1 / 3;
+  width: 100%;
+}
+.buttons > button:nth-child(18){
+  grid-column: 3 / -1;
+  width: 100%;
+}
 .calc_btn {
-  width: 57px;
-  height: 57px;
+  width: 60px;
+  height: 60px;
   text-align: center;
   font-size: 1.5rem;
   border-radius: 16px;
@@ -89,14 +91,6 @@ body {
   cursor: pointer;
   user-select: none;
 }
-.calc_btn.equal {
-  grid-area: equal;
-  width: 100%;
-}
-.calc_btn.clear {
-  grid-area: clear;
-  width: 100%;
-}
 .new_color {
   background: #ffe4c4;
   color: rgb(139, 9, 35);
@@ -106,7 +100,6 @@ body {
   background: #d2b099;
   border: 1px solid #ba957c;
 }
-
 .calc_btn:hover {
   filter: brightness(120%);
 }
