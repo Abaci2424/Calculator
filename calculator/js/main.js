@@ -1,212 +1,33 @@
 const output = document.querySelector(".output");
-const allButtons = document.querySelector(".buttons");
-const numberBtn = document.querySelectorAll('[data-number]');
-const operationBtn = document.querySelectorAll('[data-operation]');
-const equal = document.querySelector('[data-equal]');
-const clear = document.querySelector('[data-reset]');
-const percent = document.querySelector('[data-percent]');
+const allButtons = document.querySelectorAll(".calc_btn");
 const history = document.querySelector(".history");
 
-
-let firstValue = "";
-let isFirstValue = false;
-let secondValue = "";
-let isSecondValue = false;
-let sign = "";
-let resultValue = 0;
-
-numberBtn.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    let number = e.target.dataset.number;
-
-    if (isFirstValue == false) {
-      getFirstValue(number);
-    }
-    if (isSecondValue == false) {
-      getSecondValue(number);
-    }
-  });
-});
-
-function getFirstValue(e) {
-  output.textContent = "";
-  firstValue += e;
-  output.textContent = firstValue;
-  firstValue = +firstValue;
-  historyDisplay();
-}
-
-function getSecondValue(e) {
-if (firstValue != '' && sign != '') {
-  secondValue += e;
-  output.textContent = secondValue;
-  history.textContent = secondValue
-  secondValue = +secondValue;
-  historyDisplay();
- 
-} 
-// if(firstValue != '' && secondValue != '' && sign != '') {
-//   resultValue = resultValue;
-// }
-}
-
-function detSign() {
-  operationBtn.forEach((button) => {
+allButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      sign = e.target.dataset.operation;
-      output.textContent = sign;
-      isFirstValue = true;
-      historyDisplay();
+      let value = e.target.value;
+      
+      switch(value) {
+        case "C":
+          history.textContent = "";
+          output.textContent = "0";
+          break;
+        case "=":
+          try {
+            history.textContent = eval(history.textContent);
+            
+          } catch {
+            history.textContent = "";
+          }
+          break;
+
+
+        default:
+          history.textContent += value;
+          if(value = "=")return;
+          output.textContent = value;
+      }
     });
   });
-} 
-detSign()
-
-equal.addEventListener('click', () => {
-  output.textContent = '';
-  switch (sign) {
-        case '+':
-          resultValue = firstValue + secondValue;
-          break;
-        case '-':
-          resultValue = firstValue - secondValue;
-          break;
-        case '/':
-          if (secondNumber === "0") {
-            firstValue = "";
-            isFirstValue = false;
-            secondValue = "";
-            isSecondValue = "";
-            sign = "";
-            resultValue = 0;
-            history.textContent = "";
-                      output.textContent = "0";
-                      return;
-                    }
-          resultValue = firstValue / secondValue;
-          break;
-    
-        case '*':
-          resultValue = firstValue * secondValue;
-          break;
-    
-        default:
-          break;
-        }
-        output.textContent = resultValue;
-        firstValue = resultValue;
-        secondValue = '';
-
-        resultLength();
-});
-
-function resultLength() {
-  resultValue = JSON.stringify(resultValue);
-
-  if(resultValue.length >= 8) {
-    resultValue = JSON.parse(resultValue);
-    output.textContent = resultValue.toFixed(3);
-  }
-}
-
-percent.addEventListener('click', () => {
-  output.textContent = '';
-  if(firstValue != '') {
-    resultValue = firstValue / 100;
-    firstValue = resultValue;
-  }
-  if(firstValue != '' && secondValue != '' && sign != '') {
-    resultValue = resultValue / 100;
-  }
-})
-
-function historyDisplay() {
-  history.textContent += output.textContent;
-}
-
-function clearAll() {
-  firstValue = "";
-  isFirstValue = false;
-  secondValue = "";
-  isSecondValue = "";
-  sign = "";
-  resultValue = 0;
-  output.textContent = 0;
-  history.textContent = "";
-}
-
-clear.addEventListener("click", clearAll);
-
-
-
-
-// let result = null;
-// let value = null;
-// let currentOperation = null;
-
-
-
-// function sum(a, b) {
-//   return a + b;
-// }
-
-// function subtraction(a, b) {
-//   return a - b;
-// }
-
-// function division(a, b) {
-//   return a / b;
-// }
-
-// function multiplication(a, b) {
-//   return a * b;
-// }
-
-// // нажали на кнопку, data-number='1', data-operation='sum',
-
-// function handleClick(e) {
-//  let number = parseInt(e.target.dataset.number);
-//  let operation = e.target.dataset.operation;
-//  historyDisplay();
-
-//    if (!result && number) {
-//     result = number;
-//     return;
-//   }
-
-//   if (number) {
-//     value = number;
-//     output.textContent = value;
-//     console.log(value);
-    
-//   } else if (operation) {
-//     currentOperation = operation;
-//     output.textContent = currentOperation;
-//     console.log(currentOperation);
-    
-   
-//     switch (currentOperation) {
-//     case '+':
-//       result = sum(result, value);
-//       break;
-//     case '-':
-//       result = subtraction(result, value);
-//       break;
-
-//     case '/':
-//       result = division(result, value);
-//       break;
-
-//     case '*':
-//       result = multiplication(result, value);
-//       break;
-
-//     default:
-//       break;
-//     }
- 
-// }
-
 
 
 // let firstNumber = "";
